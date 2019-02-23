@@ -21,17 +21,31 @@ bool readFile(string fileToRead, string* fileContent)
 	return true;
 }
 
+bool lexer(string* fileContent)
+{
+	int i = 0;
+	bool error = false;
+
+	while (i < fileContent->length() && !error)
+	{
+		if (true)
+		{
+
+		}
+		i++;
+	}
+	return error;
+}
+
 int main()
 {
 	string fileContent = "";
-	string h;
-	ifstream f("exemple.cs");
-
-	while (getline(f, h))
-	{
-		fileContent += h;
-	}
 
 	readFile("exemple.cs", &fileContent);
+
+	lexer(&fileContent);
+
     cout << fileContent;
+	int i;
+	cin >> i;
 }
