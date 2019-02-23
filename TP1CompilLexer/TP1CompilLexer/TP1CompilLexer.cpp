@@ -17,7 +17,7 @@ vector<string> m_loopType = { "for" };
 
 vector<string> *m_listTokens = new vector<string>();
 
-vector<void> *m_listIds = new vector<void>();
+vector<void> *m_listIdentificators = new vector<void>();
 
 bool readFile(string fileToRead, string* fileContent)
 {
@@ -47,15 +47,40 @@ int lexer(string* fileContent)
 			if (find(m_declarationType.begin(), m_declarationType.end(), lex) != m_declarationType.end())//Lexem is a declaration
 			{
 				m_listTokens->push_back("DEC: " + lex);
+				
 				//dec id;
 				//OR
 				//dec id = ...;
+				//OR
+				//dec id0, id1 =..., id2;
+
+				i++;//go to next char
+				string id = "";
+				while (fileContent->at(i) != ';' || i < fileContent->length())
+				{
+					if (fileContent->at(i) == '=')
+					{
+
+					}
+					if (fileContent->at(i) == ',')//multiple declarations
+					{
+
+					}
+					if (fileContent->at(i) != ' ' | fileContent->at(i) != '\n')//remove blank spaces
+					{
+						id += fileContent->at(i);
+					}
+					i++;
+				}
 			}
 			else
 			{
 				if (find(m_conditionType.begin(), m_conditionType.end(), lex) != m_conditionType.end())//Lexem is a condition
 				{
 					m_listTokens->push_back("COND: " + lex);
+					
+					//if(...){...}
+					//look if ids used in condition exist
 				}
 				else
 				{
