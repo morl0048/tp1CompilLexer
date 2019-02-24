@@ -17,7 +17,7 @@ vector<string> m_loopType = { "for" };
 
 vector<string> *m_listTokens = new vector<string>();
 
-vector<void> *m_listIdentificators = new vector<void>();
+//vector<void> *m_listIdentificators = new vector<void>();
 
 bool readFile(string fileToRead, string* fileContent)
 {
@@ -46,32 +46,32 @@ int lexer(string* fileContent)
 			//check to see what lexem looks like
 			if (find(m_declarationType.begin(), m_declarationType.end(), lex) != m_declarationType.end())//Lexem is a declaration
 			{
-				m_listTokens->push_back("DEC: " + lex);
-				
+				string decType = lex;
+				lex = "";
+
 				//dec id;
 				//OR
 				//dec id = ...;
 				//OR
 				//dec id0, id1 =..., id2;
-
-				i++;//go to next char
-				string id = "";
-				while (fileContent->at(i) != ';' || i < fileContent->length())
+				while (fileContent->at(i) != ';')
 				{
-					if (fileContent->at(i) == '=')
+					if (fileContent->at(i) == ',')//keep declaration and reset a new one
 					{
-
+						m_listTokens->push_back("DEC: " + decType + " " + lex);
+						lex = "";
 					}
-					if (fileContent->at(i) == ',')//multiple declarations
+					else
 					{
-
+						if (fileContent->at(i) != ' ')
+						{
+							lex += fileContent->at(i);
+						}
 					}
-					if (fileContent->at(i) != ' ' | fileContent->at(i) != '\n')//remove blank spaces
-					{
-						id += fileContent->at(i);
-					}
+					
 					i++;
 				}
+				m_listTokens->push_back("DEC: " + decType + " " + lex);
 			}
 			else
 			{

@@ -1,2 +1,3 @@
 int i = 10;
-int j = 30;
+float j,      k, l;
+bool m = true;
