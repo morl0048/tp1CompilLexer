@@ -1,3 +1,6 @@
-int i = 10;
-float j,      k, l;
-bool m = true;
+10 ;
+10.01 ;
+true ;
+'W' ;
+"allo" ;
+all ;
